@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 import MovieRow from './MovieRow'
+import WatchList from './WatchList'
+import SearchMovies from './SearchMovies'
+import Nav from './Nav'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import './App.css'
 
 const moviesDBKey = process.env.REACT_APP_MOVIES_DB_KEY
@@ -9,43 +13,31 @@ class App extends Component {
   constructor() {
     super()
 
-    this.state = { movies: [] }
+    this.state = { searchedMovies: [], watchList: [] }
   }
 
   componentDidMount() {
     // this.searchMovies()
   }
 
-  searchMovies = searchTerm => {
-    fetch(`${baseUrl}/search/movie?query=${searchTerm}&api_key=${moviesDBKey}`)
-      .then(res => res.json())
-      .then(({ results }) => this.setState({ movies: results }))
+  addMovie = movie => {
+    this.setState({
+      watchList: this.state.watchList.concat(movie),
+    })
   }
 
   render() {
     return (
-      <div>
-        <table className="titleBar">
-          <tbody>
-            <tr>
-              <td>
-                <img src="video-camera.svg" alt="icon" width="50" />
-              </td>
-              <td width="8" />
-              <td>
-                <h1> MovieDB Search</h1>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <input
-          style={{ fontSize: 24, width: '99%', padding: '8px 0px 8px 16px' }}
-          type="text"
-          placeholder="Enter a movie title"
-          onChange={e => this.searchMovies(e.target.value)}
-        />
-        {this.state.movies && this.state.movies.map(movie => <MovieRow key={movie.id} movie={movie} />)}
-      </div>
+      <Router>
+        <div>
+          <Nav />
+          <Route
+            path="/search-movies"
+            render={routerProps => <SearchMovies {...routerProps} addMovie={this.addMovie} />}
+          />
+          <Route path="/watchlist" render={routeProps => <WatchList {...routeProps} movies={this.state.watchList} />} />
+        </div>
+      </Router>
     )
   }
 }

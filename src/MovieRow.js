@@ -7,6 +7,10 @@ class MovieRow extends Component {
     const url = `https://www.themoviedb.org/movie/${this.props.movie.id}`
     window.location.href = url
   }
+
+  addMovie = () => {
+    this.props.addMovie(this.props.movie)
+  }
   render() {
     const { movie } = this.props
     return (
@@ -20,6 +24,7 @@ class MovieRow extends Component {
               <h1>{movie.title}</h1>
               <p>{movie.overview}</p>
               <input type="button" value="View" onClick={this.viewMovie} />
+              <input type="button" value="Add to Watchlist" onClick={this.addMovie} />
             </td>
           </tr>
         </tbody>

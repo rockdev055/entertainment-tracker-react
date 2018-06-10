@@ -20,6 +20,9 @@ const Nav = () => (
         <td>
           <Link to="/search-movies">Search Movies</Link>
         </td>
+        <td>
+          <Link to="/search-tv">Search TV Shows</Link>
+        </td>
       </tr>
     </tbody>
   </table>

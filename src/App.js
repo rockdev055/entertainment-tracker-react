@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import MovieRow from './MovieRow'
 import WatchList from './WatchList'
 import SearchMovies from './SearchMovies'
+import SearchTV from './SearchTV'
 import Nav from './Nav'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import './App.css'
@@ -13,7 +14,7 @@ class App extends Component {
   constructor() {
     super()
 
-    this.state = { searchedMovies: [], watchList: [] }
+    this.state = { watchList: [] }
   }
 
   componentDidMount() {
@@ -35,6 +36,7 @@ class App extends Component {
             path="/search-movies"
             render={routerProps => <SearchMovies {...routerProps} addMovie={this.addMovie} />}
           />
+          <Route path="/search-tv" render={routerProps => <SearchTV {...routerProps} />} />
           <Route path="/watchlist" render={routeProps => <WatchList {...routeProps} movies={this.state.watchList} />} />
         </div>
       </Router>

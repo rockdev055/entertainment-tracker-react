@@ -14,7 +14,7 @@ class App extends Component {
   constructor() {
     super()
 
-    this.state = { watchList: [] }
+    this.state = { watchList: { movies: [], shows: [] } }
   }
 
   componentDidMount() {
@@ -23,7 +23,13 @@ class App extends Component {
 
   addMovie = movie => {
     this.setState({
-      watchList: this.state.watchList.concat(movie),
+      watchList: { movies: this.state.watchList.movies.concat(movie) },
+    })
+  }
+
+  addShow = show => {
+    this.setState({
+      watchList: { shows: this.state.watchList.shows.concat(show) },
     })
   }
 
@@ -36,8 +42,18 @@ class App extends Component {
             path="/search-movies"
             render={routerProps => <SearchMovies {...routerProps} addMovie={this.addMovie} />}
           />
-          <Route path="/search-tv" render={routerProps => <SearchTV {...routerProps} />} />
-          <Route path="/watchlist" render={routeProps => <WatchList {...routeProps} movies={this.state.watchList} />} />
+          <Route
+            path="/search-tv"
+            render={routerProps => (
+              <SearchTV {...routerProps} shows={this.state.watchList.shows} addShow={this.addShow} />
+            )}
+          />
+          <Route
+            path="/watchlist"
+            render={routeProps => (
+              <WatchList {...routeProps} movies={this.state.watchList.movies} shows={this.state.watchList.shows} />
+            )}
+          />
         </div>
       </Router>
     )

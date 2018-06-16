@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
+import { addMovie } from './redux/actions/moviesActions'
 import MovieRow from './MovieRow'
 
 const moviesDBKey = process.env.REACT_APP_MOVIES_DB_KEY
@@ -45,4 +47,7 @@ class SearchMovies extends Component {
   }
 }
 
-export default SearchMovies
+export default connect(
+  null,
+  { addMovie }
+)(SearchMovies)

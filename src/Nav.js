@@ -15,7 +15,7 @@ const Nav = () => (
           <h1> MovieDB Search</h1>
         </td>
         <td>
-          <Link to="/watchlist">My Movies</Link>
+          <Link to="/watchlist">Watchlist</Link>
         </td>
         <td>
           <Link to="/search-movies">Search Movies</Link>

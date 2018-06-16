@@ -11,49 +11,14 @@ const moviesDBKey = process.env.REACT_APP_MOVIES_DB_KEY
 const baseUrl = process.env.REACT_APP_MOVIES_DB_API_URL
 
 class App extends Component {
-  constructor() {
-    super()
-
-    this.state = { watchList: { movies: [], shows: [] } }
-  }
-
-  componentDidMount() {
-    // this.searchMovies()
-  }
-
-  addMovie = movie => {
-    this.setState({
-      watchList: { movies: this.state.watchList.movies.concat(movie) },
-    })
-  }
-
-  addShow = show => {
-    this.setState({
-      watchList: { shows: this.state.watchList.shows.concat(show) },
-    })
-  }
-
   render() {
     return (
       <Router>
         <div>
           <Nav />
-          <Route
-            path="/search-movies"
-            render={routerProps => <SearchMovies {...routerProps} addMovie={this.addMovie} />}
-          />
-          <Route
-            path="/search-tv"
-            render={routerProps => (
-              <SearchTV {...routerProps} shows={this.state.watchList.shows} addShow={this.addShow} />
-            )}
-          />
-          <Route
-            path="/watchlist"
-            render={routeProps => (
-              <WatchList {...routeProps} movies={this.state.watchList.movies} shows={this.state.watchList.shows} />
-            )}
-          />
+          <Route path="/search-movies" component={SearchMovies} />
+          <Route path="/search-tv" component={SearchTV} />
+          <Route path="/watchlist" component={WatchList} />
         </div>
       </Router>
     )

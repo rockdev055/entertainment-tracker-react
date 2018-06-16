@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import MovieRow from './MovieRow'
 
 class WatchList extends Component {
@@ -9,4 +10,8 @@ class WatchList extends Component {
   }
 }
 
-export default WatchList
+export default connect(state => {
+  return {
+    movies: state.movies.all,
+  }
+})(WatchList)
